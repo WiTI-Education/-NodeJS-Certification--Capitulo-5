@@ -4,10 +4,31 @@ const assert = require('assert')
 // implement a way to create a prototype chain
 // of leopard -> lynx -> cat
 // leopard prototype must have ONLY a hiss method
-// lynx prototype must have ONLY a purr method
+const leopard = {
+    hiss: () =>  "hsss"
+}
+Object.defineProperty(leopard, "hiss", {
+  writable: false,
+  configurable: false
+});
+// lynx prototype must have ONLY a purr method}
+lynx = Object.create(leopard, {
+    purr: {
+        value: () => "prrr",
+        writable: false,
+        configurable: false
+    }
+});
 // cat prototype must have ONLY a meow method
+cat = Object.create(lynx, {
+    meow: {
+        value: () => "meow",
+        writable: false,
+        configurable: false
+    }
+});
 
-const felix = null //TODO replace null with instantiation of a cat
+const felix = Object.create(cat, {});
 felix.meow() // prints Felix the cat: meow
 felix.purr() // prints Felix the cat: prrr
 felix.hiss() // prints Felix the cat: hsss
